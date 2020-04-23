@@ -1,0 +1,13 @@
+out
+obj
+.vs
+.vscode
+*.sln.DotSettings.user
+**/*/obj
+**/*/bin
+**/*/.vs
+**/*/*.csproj.user
+**/*/*.rsa
+**/*/*.zip
+*.nupkg
+
