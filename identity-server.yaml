@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-server
+  namespace: default
+  labels:
+    app: identity-server
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  selector:
+    app: identity-server
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-server
+  namespace: default
+  labels:
+    app: identity-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: identity-server
+  template:
+    metadata:
+      labels:
+        app: identity-server
+    spec:
+      containers:
+      - name: identity-server
+        image: beyondtrust.azurecr.io/hemantksingh/identity-server:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: path-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 #target URI where the traffic must be redirected
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /identity(/|$)(.*) # the service doesn't know about this path, therefore it is rewritten using rewrite annotation https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md
+        backend:
+          serviceName: identity-server
+          servicePort: 80
