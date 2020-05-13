@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: identity-server
-        image: beyondtrust.azurecr.io/hemantksingh/identity-server:1.0.0
+        image: beyondtrust.azurecr.io/hemantksingh/identity-server:1.0.1
         env:
           - name: ASPNETCORE_ENVIRONMENT
             value: Development
