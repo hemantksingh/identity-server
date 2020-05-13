@@ -31,3 +31,7 @@ kubectl apply -f identity-server.yaml
 
 Identity server should be accessible at `http://{publicIp}/identity` with the discovery document available at `http://{publicIp}/identity/.well-known/openid-configuration`
 
+### Running Identity server in K8s
+
+https://medium.com/@christopherlenard/identity-server-and-nginx-ingress-controller-in-kubernetes-7146c22a2466
+
