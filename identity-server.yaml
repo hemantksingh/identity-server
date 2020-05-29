@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: identity-server
-        image: beyondtrust.azurecr.io/hemantksingh/identity-server:1.0.1
+        image: hemantksingh/identity-server:1.0.1
         env:
           - name: ASPNETCORE_ENVIRONMENT
             value: Development
@@ -51,8 +51,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2 #target URI where the traffic must be redirected
 spec:
   rules:
-  - host: lolcat.westeurope.cloudapp.azure.com
-    http:
+  - http:
       paths:
       - path: /identity(/|$)(.*) # the service doesn't know about this path, therefore it is rewritten using rewrite annotation https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md
         backend:
