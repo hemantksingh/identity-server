@@ -8,14 +8,13 @@
 docker build -t hemantksingh/identity-server .
 
 # Run in development mode
-docker run -p 5000:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identity-server
+docker run -p 80:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identity-server
 
 # Run in production mode
-docker run -p 5000:5000 hemantksingh/identity-server
-
+docker run -p 80:5000 hemantksingh/identity-server
 ```
 
-Identity server should be accessible at http://localhost:5000 with the discovery document available at http://localhost:5000/.well-known/openid-configuration
+Identity server should be accessible at http://localhost and the discovery document at http://localhost/.well-known/openid-configuration on the docker host
 
 ## Deploying to AKS (Azure kubernetes service)
 
