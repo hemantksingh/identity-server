@@ -62,3 +62,12 @@ az webapp config appsettings set --resource-group $resourceGroup --name $app --s
 # Tail logs
 az webapp log tail --name $app --resource-group $resourceGroup
 ```
+
+### Running with HTTPS enforced in contianer
+
+Azure app service enforces TLS termination at the app service level, so you may not have to enforce TLS within the container, but [.net core allows hosting containers with https support](https://docs.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-3.1) by
+
+* sharing the host certificate with docker container using volume mounts
+* expose container ports 80 & 44 for external use
+
+
