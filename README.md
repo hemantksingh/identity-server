@@ -62,6 +62,7 @@ az webapp config appsettings set --resource-group $resourceGroup --name $app --s
 # Tail logs
 az webapp log tail --name $app --resource-group $resourceGroup
 ```
+Further info about Azure app service - https://azure.github.io/AppService
 
 ### Running with HTTPS enforced in contianer
 
