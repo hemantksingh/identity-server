@@ -71,4 +71,14 @@ Azure app service enforces TLS termination at the app service level, so you may 
 * sharing the host certificate with docker container using volume mounts
 * expose container ports 80 & 44 for external use
 
+### Enable CORS
+
+You can either [enable CORS via Azure app service](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-rest-api#enable-cors) or within the application. To enable it within Azure app service via azcli
+
+```sh
+az webapp cors add --resource-group myResourceGroup --name <app-name> --allowed-origins 'http://localhost:5000'
+```
+
+Don't try to use App Service CORS and your own CORS code together. When used together, App Service CORS takes precedence and your own CORS code has no effect.
+
 
