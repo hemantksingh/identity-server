@@ -81,4 +81,8 @@ az webapp cors add --resource-group myResourceGroup --name <app-name> --allowed-
 
 Don't try to use App Service CORS and your own CORS code together. When used together, App Service CORS takes precedence and your own CORS code has no effect.
 
+### Session Affinity 
+
+Azure app service load balances requests using [IIS Application Request Routing (ARR)](https://www.iis.net/downloads/microsoft/application-request-routing). When a request comes in, ARR slaps a "session affinity cookie" `ARRAffinity` on the response which it uses on subsequent requests to direct that specific users requests back to the same server.  This cookie is enabled by default. If you're not using any [session state](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-3.1#session-state) in your application and want the requests to be evenly load balanced (e.g. round robin load balancing) across machines you can [disable session affinity in azure app service](https://dzone.com/articles/disabling-session-affinity-in-azure-app-service-we) by adding a special response header `Arr-Disable-Session-Affinity` in the application and setting it to true.
+
 
