@@ -12,6 +12,9 @@ docker run -p 80:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identit
 
 # Run in production mode
 docker run -p 80:5000 hemantksingh/identity-server
+
+# or run identity server behind an nginx reverse proxy
+docker-compose up
 ```
 
 Identity server should be accessible at http://localhost and the discovery document at http://localhost/.well-known/openid-configuration on the docker host
