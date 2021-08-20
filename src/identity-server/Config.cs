@@ -18,9 +18,9 @@ namespace identity_server
 
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
+            new[]
             {
-                new ApiResource("api1", "My API #1")
+                new ApiResource("resource-api", "Resource API #1")
             };
 
 
@@ -36,7 +36,7 @@ namespace identity_server
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "resource-api" }
                 },
 
                 // MVC client using code flow + pkce
@@ -54,7 +54,7 @@ namespace identity_server
                     PostLogoutRedirectUris = { "http://localhost:5003/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AllowedScopes = { "openid", "profile", "resource-api" }
                 },
 
                 // SPA client using code flow + pkce
@@ -79,7 +79,7 @@ namespace identity_server
                     PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
                     AllowedCorsOrigins = { "http://localhost:5002" },
 
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AllowedScopes = { "openid", "profile", "resource-api" }
                 }
             };
     }

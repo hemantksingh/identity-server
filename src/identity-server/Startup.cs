@@ -84,21 +84,24 @@ namespace identity_server
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseForwardedHeaders();
-
-            if (Environment.IsDevelopment())
+            app.Map("/identity", appBuilder =>
             {
-                app.UseDeveloperExceptionPage();
-            }
+                appBuilder.UseForwardedHeaders();
 
-            app.UseStaticFiles();
+                if (Environment.IsDevelopment())
+                {
+                    appBuilder.UseDeveloperExceptionPage();
+                }
 
-            app.UseRouting();
-            app.UseIdentityServer();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
+                appBuilder.UseStaticFiles();
+
+                appBuilder.UseRouting();
+                appBuilder.UseIdentityServer();
+                appBuilder.UseAuthorization();
+                appBuilder.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapDefaultControllerRoute();
+                });
             });
         }
     }
