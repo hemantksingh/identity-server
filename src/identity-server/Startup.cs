@@ -4,12 +4,14 @@
 
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace identity_server
 {
@@ -70,6 +72,17 @@ namespace identity_server
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
+                .AddOpenIdConnect("okta","Okta", options =>
+                {
+                    options.ClientId = "0oa1i910zrWhY8aEo5d7";
+                    options.ClientSecret = "dajXpUruA4Vxn48CIwu8VMG1-azpVZLg82iq96MK";
+                    options.Authority = "https://dev-63961725.okta.com";
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.SaveTokens = true;
+                    options.Prompt = OpenIdConnectPrompt.SelectAccount;
+                })
                 .AddGoogle(options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
