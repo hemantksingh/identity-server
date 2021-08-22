@@ -5,6 +5,7 @@ obj
 *.sln.DotSettings.user
 **/*/obj
 **/*/bin
+**/*/lib
 **/*/.vs
 **/*/*.csproj.user
 **/*/*.rsa
