@@ -40,8 +40,8 @@ namespace client_webapp
                 {
                     options.ClientId = "mvc";
                     options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
-                    options.Authority = "http://localhost:5000/identity";
-                    options.RequireHttpsMetadata = false;
+                    options.Authority = "https://localhost:5001/identity";
+                    //options.RequireHttpsMetadata = false;
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.SaveTokens = true;
