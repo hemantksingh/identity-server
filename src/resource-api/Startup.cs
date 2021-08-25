@@ -37,7 +37,7 @@ namespace resource_api
                 })
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "http://localhost:5000/identity";
+                    options.Authority = "https://localhost:5000/identity";
                     // The expected audience for openid connect access token. It allows enforcing least privilege principle ensuring the
                     // API is only accessible by a token with the specified audience.
                     options.Audience = "resourceapi"; 

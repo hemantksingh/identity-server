@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity-server4", "src\identity-server4\identity-server4.csproj", "{A308F478-FBB4-49A7-BDFC-E9518F184DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity-server", "src\identity-server\identity-server.csproj", "{A308F478-FBB4-49A7-BDFC-E9518F184DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
