@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{78BF8A42-1F37-41B0-8A86-A4A9F9999D73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity-server", "src\identity-server\identity-server.csproj", "{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "resource-api", "src\resource-api\resource-api.csproj", "{7B18CFBF-BEAE-4073-8AC4-2C83E2BC4CD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "client-webapp", "src\client-webapp\client-webapp.csproj", "{B712A7D7-7B94-42B1-B1C8-39D8FF238BCA}"
@@ -18,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "identity-server4", "src\identity-server4\identity-server4.csproj", "{A308F478-FBB4-49A7-BDFC-E9518F184DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identity-server4", "src\identity-server4\identity-server4.csproj", "{A308F478-FBB4-49A7-BDFC-E9518F184DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,18 +28,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|x64.Build.0 = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Debug|x86.Build.0 = Debug|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|x64.ActiveCfg = Release|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|x64.Build.0 = Release|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|x86.ActiveCfg = Release|Any CPU
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436}.Release|x86.Build.0 = Release|Any CPU
 		{7B18CFBF-BEAE-4073-8AC4-2C83E2BC4CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B18CFBF-BEAE-4073-8AC4-2C83E2BC4CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B18CFBF-BEAE-4073-8AC4-2C83E2BC4CD8}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -83,7 +69,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1A8C05B2-3F7B-481C-B7D9-C4DF7208B436} = {78BF8A42-1F37-41B0-8A86-A4A9F9999D73}
 		{7B18CFBF-BEAE-4073-8AC4-2C83E2BC4CD8} = {78BF8A42-1F37-41B0-8A86-A4A9F9999D73}
 		{B712A7D7-7B94-42B1-B1C8-39D8FF238BCA} = {78BF8A42-1F37-41B0-8A86-A4A9F9999D73}
 		{A308F478-FBB4-49A7-BDFC-E9518F184DEE} = {78BF8A42-1F37-41B0-8A86-A4A9F9999D73}
