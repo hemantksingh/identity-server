@@ -9,18 +9,22 @@ namespace identity_server
 {
     public static class Config
     {
-        public static IEnumerable<IdentityResource> Ids =>
+        /// <summary>
+        /// Map to scopes that give identity related information
+        /// </summary>
+        public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.Profile()
             };
 
+        public static IEnumerable<ApiScope> ApiScopes => new[] {new ApiScope("resourceapi.fullaccess")};
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
+            new[]
             {
-                new ApiResource("api1", "My API #1")
+                new ApiResource("resourceapi", "Resource API #1")
             };
 
 
@@ -34,9 +38,9 @@ namespace identity_server
                     ClientName = "Client Credentials Client",
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+                    ClientSecrets = {new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256())},
 
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = {"resourceapi.fullaccess"}
                 },
 
                 // MVC client using code flow + pkce
@@ -47,14 +51,17 @@ namespace identity_server
 
                     AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     RequirePkce = true,
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                    ClientSecrets = {new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256())},
 
-                    RedirectUris = { "http://localhost:5003/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:5003/signout-oidc",
-                    PostLogoutRedirectUris = { "http://localhost:5003/signout-callback-oidc" },
+                    // The authorization code flow is redirection based, i.e. the authorization code is delivered to the browser via a redirect URI,
+                    // therefore a uri is configured for the client to recevie the code on. signin-oidc is the default endpoint of the MS openid connect
+                    // middleware listens on
+                    RedirectUris = {"https://localhost:44371/signin-oidc"},
+                    FrontChannelLogoutUri = "https://localhost:44371/signout-oidc",
+                    PostLogoutRedirectUris = {"https://localhost:44371/signout-callback-oidc"},
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AllowedScopes = {"openid", "profile", "resourceapi.fullaccess"}
                 },
 
                 // SPA client using code flow + pkce
@@ -76,10 +83,10 @@ namespace identity_server
                         "http://localhost:5002/popup.html",
                     },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris = {"http://localhost:5002/index.html"},
+                    AllowedCorsOrigins = {"http://localhost:5002"},
 
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AllowedScopes = {"openid", "profile", "resourceapi.fullaccess"}
                 }
             };
     }

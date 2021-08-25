@@ -1,5 +1,19 @@
 # Identity server
 
+Adding identity server to the solution
+
+```sh
+# Install IdentityServer4 templates
+dotnet new -i IdentityServer4.Templates
+
+# Add identity server project
+dotnet new is4empty -n identity-server
+dotnet sln add ./src/identity-server/identity-server.csproj
+
+# Add the Quickstarter UI
+cd ./src/identity-server
+dotnet new is4ui
+```
 
 ## Running the application using docker
 
