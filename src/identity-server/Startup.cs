@@ -44,8 +44,8 @@ namespace identity_server4
             services.AddAuthentication()
                 .AddOpenIdConnect("okta", "Okta", options =>
                 {
-                    options.ClientId = "0oa1i910zrWhY8aEo5d7";
-                    options.ClientSecret = "dajXpUruA4Vxn48CIwu8VMG1-azpVZLg82iq96MK";
+                    options.ClientId = "<okta_clientid>";
+                    options.ClientSecret = "<okta_clientsecret>";
                     options.Authority = "https://dev-63961725.okta.com";
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.SignOutScheme = IdentityServerConstants.SignoutScheme;
