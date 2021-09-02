@@ -19,12 +19,19 @@ namespace identity_server
                 new IdentityResources.Profile()
             };
 
-        public static IEnumerable<ApiScope> ApiScopes => new[] {new ApiScope("resourceapi.fullaccess")};
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new[]
+            {
+                new ApiScope("resourceapi.fullaccess")
+            };
 
         public static IEnumerable<ApiResource> Apis =>
             new[]
             {
-                new ApiResource("resourceapi", "Resource API #1")
+                new ApiResource("resourceapi", "Resource API")
+                {
+                    Scopes = {"resourceapi.fullaccess"}
+                }
             };
 
 
