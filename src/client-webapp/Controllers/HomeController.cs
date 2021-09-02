@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using client_webapp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace client_webapp.Controllers
 {
@@ -17,10 +18,15 @@ namespace client_webapp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor,
+            IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+            _httpClientFactory = httpClientFactory;
         }
 
         public IActionResult Index()
@@ -35,9 +41,11 @@ namespace client_webapp.Controllers
 
         public async Task<ViewResult> Weather()
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var httpClient = new HttpClient();
+            var accessToken = await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token");
+
+            var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            _logger.LogDebug("Requesting weather forecast https://localhost:44345/weatherforecast");
             var httpResponse = await httpClient.GetAsync("https://localhost:44345/weatherforecast");
             if (!httpResponse.IsSuccessStatusCode)
                 throw new InvalidOperationException(httpResponse.ReasonPhrase);
@@ -50,7 +58,7 @@ namespace client_webapp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

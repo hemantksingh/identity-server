@@ -21,6 +21,8 @@ namespace client_webapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            services.AddHttpClient();
             services.AddControllersWithViews();
 
             services.AddAuthentication(options =>
@@ -28,9 +30,10 @@ namespace client_webapp
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) // Configures the cookie handler, and it enables the application to use cookie‑based authentication for that default scheme.
-                                                                              // Once an identity token is validated and transformed to a claims identity, it will be stored in an encrypted cookie,
-                                                                              // which is then used on subsequent requests to the web app
+                // Configures the cookie handler, and enables the application to use cookie‑based authentication for that default scheme.
+                // Once an identity token is validated and transformed to a claims identity, it will be stored in an encrypted cookie,
+                // which is then used on subsequent requests to the web app
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme) 
                 .AddOpenIdConnect(options =>
                 {
                     options.ClientId = "mvc";
@@ -64,7 +67,7 @@ namespace client_webapp
 
             app.UseRouting();
 
-            // Add authentication to the request pipeline, before the endpoint mapping, to allow authentication to kickin
+            // Add authentication to the request pipeline, before the endpoint mapping, to allow authentication to kick in
             app.UseAuthentication();
             app.UseAuthorization();
 
