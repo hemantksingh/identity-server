@@ -61,7 +61,7 @@ namespace identity_server
                     ClientSecrets = {new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256())},
 
                     // The authorization code flow is redirection based, i.e. the authorization code is delivered to the browser via a redirect URI,
-                    // therefore a uri is configured for the client to recevie the code on. signin-oidc is the default endpoint of the MS openid connect
+                    // therefore a uri is configured for the client to receive the code on. signin-oidc is the default endpoint of the MS openid connect
                     // middleware listens on
                     RedirectUris = {"https://localhost:44371/signin-oidc"},
                     FrontChannelLogoutUri = "https://localhost:44371/signout-oidc",
