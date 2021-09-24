@@ -10,10 +10,44 @@ services:
       - 80:80
       - 443:443
   
+  # client-webapp:
+  #   image: hemantksingh/client-webapp:latest
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.client-webapp
+  #   container_name: client-webapp
+  #   volumes:
+  #     - ~/.aspnet/https/:/https/
+  #   # expose:
+  #   #   - "5000"
+  #   ports:
+  #     - 5000:80
+  #     - 8001:443 
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS="https://+;http://+"
+  #     - ASPNETCORE_HTTPS_PORT=8001
+  #     - ASPNETCORE_Kestrel__Certificates__Default__Password="LocalDev3nv"
+  #     - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/client-webapp.pfx
+
+  
   identity-server:
     image: hemantksingh/identity-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.identity-server
     container_name: identity-server
+    volumes:
+      - ~/.aspnet/https/:/https/
     expose:
       - "5000"
+    # ports:
+    #   - 5000:80
+    #   - 8001:443 
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      # The base dotnet/core/aspnet image sets ASPNETCORE_URLS to http://+:80 which means by default the app starts on port 80
+      - ASPNETCORE_URLS=http://+:5000 
+      # - ASPNETCORE_HTTPS_PORT=8001
+      # - ASPNETCORE_Kestrel__Certificates__Default__Password="LocalDev3nv"
+      # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/identity-server.pfx
