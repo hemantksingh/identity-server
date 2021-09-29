@@ -28,10 +28,22 @@ docker run -p 80:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identit
 docker run -p 80:5000 hemantksingh/identity-server
 
 # or run identity server behind an nginx reverse proxy
-docker-compose up
+docker-compose up --build
 ```
 
-Identity server should be accessible at http://localhost and the discovery document at http://localhost/.well-known/openid-configuration on the docker host
+Identity server should be accessible at http://localhost/identity and the discovery document at http://localhost/identity/.well-known/openid-configuration on the docker host
+
+### Running over HTTPS using docker
+
+You can run identity server with nginx reverse proxy with end to end TLS. This means identity server and nginx containers require TLS configuration
+
+1. [Generate a self signed certificate](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide) in `.pfx` format, export it to `~/.aspnet/https` directory and ensure it is trusted on the docker host
+2. [Extract the certificate](https://www.ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file) `.crt` and key `.key` using `openssl`
+  * `openssl pkcs12 -clcerts -nokeys -in ~/.aspnet/https/identity-server.pfx  -out identity-server.crt -password pass:<password>`
+  * `openssl pkcs12 -nocerts -in ~/.aspnet/https/identity-server.pfx  -out identity-server-encrypted.key -password pass:<password>`
+  * `openssl rsa -in identity-server-encrypted.key -out identity-server.key`
+
+3. `docker compose up --build`
 
 ## Deploying to AKS (Azure kubernetes service)
 
