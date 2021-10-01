@@ -45,6 +45,17 @@ You can run identity server with nginx reverse proxy with end to end TLS. This m
 
 3. `docker compose up --build`
 
+### Known Issues
+
+Inter service communication using dev certs fails due to certificate issues. For example client-webapp fails to communicate with identity-server with the following error:
+
+```sh
+The SSL connection could not be established, see inner exception.
+System.Security.Authentication.AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: PartialChain
+```
+
+You get the same issue while running identity-server with nginx or standalone.
+
 ## Deploying to AKS (Azure kubernetes service)
 
 In order to route external traffic to identity server running within the AKS cluster, we use nginx controller for layer 7 routing. To fulfill ingress to your application, the nginx ingress controller deployment provisions a load balancer in Azure and assigns it a public IP.
