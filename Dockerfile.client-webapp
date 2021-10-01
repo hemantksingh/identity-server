@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 USER root
-ADD ./identity-server.crt /usr/local/share/ca-certificates/asp_dev/
+ADD ./service-identity.crt /usr/local/share/ca-certificates/asp_dev/
 RUN chmod -R 644 /usr/local/share/ca-certificates/asp_dev/
 RUN update-ca-certificates --fresh
 

@@ -10,6 +10,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    depends_on: 
+      - identity-server
   
   # client-webapp:
   #   image: hemantksingh/client-webapp:latest
@@ -26,8 +28,9 @@ services:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=https://+;http://+:5001
   #     - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-  #     - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/client-webapp.pfx
-
+  #     - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/service-identity.pfx
+  #   depends_on: 
+  #     - identity-server
   
   identity-server:
     image: hemantksingh/identity-server:latest
@@ -48,5 +51,5 @@ services:
       # The base dotnet/core/aspnet image sets ASPNETCORE_URLS to http://+:80 which means by default the app starts on port 80
       - ASPNETCORE_URLS=https://+;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/identity-server.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/service-identity.pfx
   

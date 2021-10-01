@@ -39,9 +39,9 @@ You can run identity server with nginx reverse proxy with end to end TLS. This m
 
 1. [Generate a self signed certificate](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide) in `.pfx` format, export it to `~/.aspnet/https` directory and ensure it is trusted on the docker host
 2. [Extract the certificate](https://www.ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file) `.crt` and key `.key` using `openssl`
-  * `openssl pkcs12 -clcerts -nokeys -in ~/.aspnet/https/identity-server.pfx  -out identity-server.crt -password pass:<password>`
-  * `openssl pkcs12 -nocerts -in ~/.aspnet/https/identity-server.pfx  -out identity-server-encrypted.key -password pass:<password>`
-  * `openssl rsa -in identity-server-encrypted.key -out identity-server.key`
+    * `openssl pkcs12 -clcerts -nokeys -in ~/.aspnet/https/service-identity.pfx  -out service-identity.crt -password pass:<password>`
+    * `openssl pkcs12 -nocerts -in ~/.aspnet/https/service-identity.pfx  -out service-identity-encrypted.key -password pass:<password>`
+    * `openssl rsa -in service-identity-encrypted.key -out service-identity.key`
 
 3. `docker compose up --build`
 
