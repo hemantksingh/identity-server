@@ -11,6 +11,7 @@ using client_webapp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace client_webapp.Controllers
 {
@@ -19,13 +20,16 @@ namespace client_webapp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
 
         public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor,
+            IConfiguration configuration,
             IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
         }
 
@@ -45,10 +49,11 @@ namespace client_webapp.Controllers
 
             var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            _logger.LogDebug("Requesting weather forecast https://localhost:44345/weatherforecast");
-            var httpResponse = await httpClient.GetAsync("https://localhost:44345/weatherforecast");
-            if (!httpResponse.IsSuccessStatusCode)
-                throw new InvalidOperationException(httpResponse.ReasonPhrase);
+
+            var weatherApiBaseUri = _configuration["WeatherApi:BaseUri"];
+            _logger.LogDebug("Requesting weather forecast {weatherApiBaseUri}/weatherforecast", weatherApiBaseUri);
+            var httpResponse = await httpClient.GetAsync($"{weatherApiBaseUri}/weatherforecast");
+            httpResponse.EnsureSuccessStatusCode();
             var result = await httpResponse.Content.ReadFromJsonAsync<IEnumerable<WeatherForecastModel>>();
 
             return View(result);

@@ -28,10 +28,34 @@ docker run -p 80:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identit
 docker run -p 80:5000 hemantksingh/identity-server
 
 # or run identity server behind an nginx reverse proxy
-docker-compose up
+docker-compose up --build
 ```
 
-Identity server should be accessible at http://localhost and the discovery document at http://localhost/.well-known/openid-configuration on the docker host
+Identity server should be accessible at http://localhost/identity and the discovery document at http://localhost/identity/.well-known/openid-configuration on the docker host
+
+
+### Running over HTTPS using docker
+
+For running identity server with nginx reverse proxy with end to end TLS within docker containers:
+
+1. [Generate a self signed certificate](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide) in `.pfx` format, export it to `~/.aspnet/https` directory and ensure it is trusted on the docker host `./generate_certs.ps1`
+2. [Extract the certificate](https://www.ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file) `.crt` and key `.key` using `openssl`
+    * `openssl pkcs12 -clcerts -nokeys -in ~/.aspnet/https/service-identity.pfx  -out service-identity.crt -password pass:<password>`
+    * `openssl pkcs12 -nocerts -in ~/.aspnet/https/service-identity.pfx  -out service-identity-encrypted.key -password pass:<password>`
+    * `openssl rsa -in service-identity-encrypted.key -out service-identity.key`
+
+3. Run with [HTTPS using docker compose](https://docs.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-3.1) `docker compose up --build`
+
+### Known Issues
+
+Inter service communication using dev certs fails due to certificate issues. For example client-webapp fails to communicate with identity-server with the following error:
+
+```sh
+The SSL connection could not be established, see inner exception.
+System.Security.Authentication.AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: PartialChain
+```
+
+You get the same issue while running identity-server with nginx or standalone.
 
 ## Deploying to AKS (Azure kubernetes service)
 
@@ -80,13 +104,6 @@ az webapp config appsettings set --resource-group $resourceGroup --name $app --s
 az webapp log tail --name $app --resource-group $resourceGroup
 ```
 Further info about Azure app service - https://azure.github.io/AppService
-
-### Running with HTTPS enforced in contianer
-
-Azure app service enforces TLS termination at the app service level, so you may not have to enforce TLS within the container, but [.net core allows hosting containers with https support](https://docs.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-3.1) by
-
-* sharing the host certificate with docker container using volume mounts
-* expose container ports 80 & 44 for external use
 
 ### Enable CORS
 
