@@ -57,9 +57,9 @@ System.Security.Authentication.AuthenticationException: The remote certificate i
 
 You get the same issue while running identity-server with nginx or standalone.
 
-## Deploying to AKS (Azure kubernetes service)
+## Deploying to Kubernetes
 
-In order to route external traffic to identity server running within the AKS cluster, we use nginx controller for layer 7 routing. To fulfill ingress to your application, the nginx ingress controller deployment provisions a load balancer in Azure and assigns it a public IP.
+In order to route external traffic to [identity server running in a kubernetes cluster](https://medium.com/@christopherlenard/identity-server-and-nginx-ingress-controller-in-kubernetes-7146c22a2466), we use nginx controller for layer 7 routing. To fulfill ingress to your application, the nginx ingress controller deployment provisions a load balancer in your cloud provider e.g. Azure and assigns it a public IP. 
 
 ```sh
 # deploy nginx ingress controller
@@ -70,10 +70,6 @@ kubectl apply -f identity-server.yaml
 ```
 
 Identity server should be accessible at `http://{publicIp}/identity` with the discovery document available at `http://{publicIp}/identity/.well-known/openid-configuration`
-
-### Running Identity server in K8s
-
-https://medium.com/@christopherlenard/identity-server-and-nginx-ingress-controller-in-kubernetes-7146c22a2466
 
 ## Deploying to Azure App Service 
 
