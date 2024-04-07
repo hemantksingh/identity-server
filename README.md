@@ -19,7 +19,7 @@ dotnet new is4ui
 
 ```sh
 # Build the docker image
-docker build -t hemantksingh/identity-server .
+docker build -t hemantksingh/identity-server -f Dockerfile.identity-server .
 
 # Run in development mode
 docker run -p 80:5000 -e ASPNETCORE_ENVIRONMENT=Development hemantksingh/identity-server
