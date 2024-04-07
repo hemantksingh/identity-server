@@ -2,6 +2,7 @@ out
 obj
 .vs
 .vscode
+.idea
 *.sln.DotSettings.user
 **/*/obj
 **/*/bin
